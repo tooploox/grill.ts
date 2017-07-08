@@ -1,6 +1,10 @@
 import * as redux from 'redux'
+import { eq, actionCreatorFactory } from "@/typedActions"
 
-export namespace Actions {
+const actionCreator = actionCreatorFactory('App')
+
+export const Actions = {
+    setVersion: actionCreator<string>("setVersion")
 }
 
 export interface IState {
@@ -12,5 +16,8 @@ const initialState: IState = {
 }
 
 export function reducer(state = initialState, action: redux.Action): IState {
+    if (eq(action, Actions.setVersion)) {
+        return { ...state, version: action.payload }
+    }
     return state
 }
